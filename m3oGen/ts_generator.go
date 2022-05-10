@@ -55,14 +55,6 @@ func (n *tsG) ServiceClient(serviceName, tsPath string, service service) {
 		fmt.Println("Failed to append to schema file", err)
 		os.Exit(1)
 	}
-
-	cmd := exec.Command("prettier", "-w", "index.ts")
-	cmd.Dir = filepath.Join(tsPath, "src", serviceName)
-	outp, err := cmd.CombinedOutput()
-	if err != nil {
-		fmt.Printf("Problem formatting '%v' client: %v %s\n", serviceName, string(outp), err.Error())
-		os.Exit(1)
-	}
 }
 
 func (n *tsG) TopReadme(serviceName, examplesPath string, service service) {
@@ -181,16 +173,6 @@ func (n *tsG) ExampleAndReadmeEdit(examplesPath, serviceName, endpoint, title st
 }
 
 func (n *tsG) IndexFile(tsPath string, services []service) {
-	// add file list to gitignore
-	f, err := os.OpenFile(filepath.Join(tsPath, ".gitignore"), os.O_APPEND|os.O_WRONLY|os.O_CREATE, FILE_EXECUTE_PERMISSION)
-	//for _, sname := range tsFileList {
-	//	_, err := f.Write([]byte(sname + "\n"))
-	//	if err != nil {
-	//		fmt.Println("failed to append service to gitignore", err)
-	//		os.Exit(1)
-	//	}
-	//}
-
 	templ, err := template.New("tsclient").Funcs(funcMap()).Parse(tsIndexTemplate)
 	if err != nil {
 		fmt.Println("Failed to unmarshal", err)
@@ -206,7 +188,7 @@ func (n *tsG) IndexFile(tsPath string, services []service) {
 		os.Exit(1)
 	}
 
-	f, err = os.OpenFile(filepath.Join(tsPath, "index.ts"), os.O_TRUNC|os.O_WRONLY|os.O_CREATE, FILE_EXECUTE_PERMISSION)
+	f, err := os.OpenFile(filepath.Join(tsPath, "index.ts"), os.O_TRUNC|os.O_WRONLY|os.O_CREATE, FILE_EXECUTE_PERMISSION)
 	if err != nil {
 		fmt.Println("Failed to open schema file", err)
 		os.Exit(1)
@@ -215,30 +197,6 @@ func (n *tsG) IndexFile(tsPath string, services []service) {
 	_, err = f.Write(b.Bytes())
 	if err != nil {
 		fmt.Println("Failed to append to schema file", err)
-		os.Exit(1)
-	}
-	cmd := exec.Command("prettier", "-w", "index.ts")
-	cmd.Dir = filepath.Join(tsPath)
-	outp, err := cmd.CombinedOutput()
-	if err != nil {
-		fmt.Printf("Problem with prettifying clients index.ts '%v\n", string(outp))
-		os.Exit(1)
-	}
-
-	l := strings.Split(tsPath, "/")
-	l = l[:len(l)-2]
-	workDir := strings.Join(l, "/")
-
-	tsFiles := filepath.Join(workDir, "cmd", "client-gen", "ts")
-	cmd = exec.Command("cp", filepath.Join(tsFiles, "package.json"), filepath.Join(tsFiles, ".gitignore"),
-		filepath.Join(tsFiles, "package-lock.json"), filepath.Join(tsFiles, "package-lock.json"),
-		filepath.Join(tsFiles, "build.js"), filepath.Join(tsFiles, "tsconfig.es.json"),
-		filepath.Join(tsFiles, "package-lock.json"), filepath.Join(tsFiles, "tsconfig.json"),
-		filepath.Join(tsFiles, "README.md"), filepath.Join(workDir, "clients", "ts"))
-
-	outp, err = cmd.CombinedOutput()
-	if err != nil {
-		fmt.Printf("Problem with prettifying clients index.ts '%v\n", string(outp))
 		os.Exit(1)
 	}
 }

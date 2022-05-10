@@ -77,7 +77,6 @@ func generate(g generator, path, workDir, examplesPath string) {
 	}
 
 	services := []service{}
-	tsFileList := []string{"esm", "index.js", "index.d.ts"}
 
 	for _, f := range files {
 
@@ -104,7 +103,7 @@ func generate(g generator, path, workDir, examplesPath string) {
 			if skip {
 				continue
 			}
-			tsFileList = append(tsFileList, f.Name())
+
 			service := service{
 				Name:       serviceName,
 				ImportName: serviceName,
@@ -140,11 +139,8 @@ func generate(g generator, path, workDir, examplesPath string) {
 					g.ExampleAndReadmeEdit(examplesPath, serviceName, endpoint, title, service, example)
 				}
 			}
-
 		}
 	}
 
 	g.IndexFile(path, services)
-
-	// publishToNpm(tsPath, tsFileList)
 }
