@@ -1,12 +1,10 @@
 package main
 
 const goIndexTemplate = `package m3o
-
 import(
 	{{ range $service := .services }}"go.m3o.com/{{ $service.Name}}"
 {{ end }}
 )
-
 func New(token string) *Client {
 	return &Client{
 		token: token,
@@ -14,11 +12,10 @@ func New(token string) *Client {
 		{{ title $service.Name }}: {{ $service.Name }}.New{{ title $service.Name}}Service(token),{{end}}
 	}
 }
-
 type Client struct {
 	token string
 {{ range $service := .services }}
-	{{ title $service.Name }} {{ $service.Name }}.{{ title $service.Name }}Service{{end}}
+	{{ title $service.Name }} {{ $service.Name }}.{{ title $service.Name }}{{end}}
 }
 `
 
