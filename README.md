@@ -10,7 +10,7 @@ To run the code generation, from the repo root issue:
 go install ./m3oGen
 ```
 
-The general flow is that protos get turned to an openapi json and this generator takes both files (JSON and proto) and generates clients and examples for the specified target like go, typescript, Dart and shell clients.
+The general flow is that protos get turned to an openapi json and this generator takes both files (JSON and proto) and generates clients and/or examples for the specified target like go, typescript, dart, cli and shell clients.
 
 To generate Go clients localy, clone the micro/services repo and run this command from the root.
 
