@@ -37,3 +37,7 @@ m3oGen shell
 The purpose of this program is to fetch the latest commit metadata (sha, html_url and message) from the micro/services repo and output a release note that has the following format.
 
 [9ae89b](https://github.com/micro/services/commit/9ae89b537680a949b4442c5f9f393bf845fb7fa4) Wordle API (#417)
+
+## ts-publish-setup
+
+The purpose of this program is to setup/update the necessary files in order to publish m3o-js clients to npm. It travers through the src folder in the m3o/m3o-js repo to build an array of available services then use that to populate the 'files' field in the package.json. It also creates the .npmrc file which includes authToken for authentication purposes with npm. This program will be used mainly by m3o-publishTS-action.
