@@ -163,14 +163,14 @@ func (n *tsG) ExampleAndReadmeEdit(examplesPath, serviceName, endpoint, title st
 		os.Exit(1)
 	}
 
-	cmd := exec.Command("prettier", "-w", title+".js")
-	cmd.Dir = filepath.Join(examplesPath, "js", serviceName, endpoint)
-	outp, err := cmd.CombinedOutput()
-	if err != nil {
-		fmt.Printf("Problem with '%v' example '%v': %v\n", serviceName, endpoint, err)
-		os.Exit(1)
-	}
-	fmt.Println(outp)
+	// cmd := exec.Command("prettier", "-w", title+".js")
+	// cmd.Dir = filepath.Join(examplesPath, "js", serviceName, endpoint)
+	// outp, err := cmd.CombinedOutput()
+	// if err != nil {
+	// 	fmt.Printf("Problem with '%v' example '%v': %v\n", serviceName, endpoint, err)
+	// 	os.Exit(1)
+	// }
+	// fmt.Println(outp)
 }
 
 func (n *tsG) IndexFile(tsPath string, services []service) {
