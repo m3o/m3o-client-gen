@@ -16,7 +16,7 @@ const (
 
 func main() {
 
-	tsPath := "/src"
+	tsPath := "src"
 
 	// this slice will be used as a value for the 'files' field in package.json
 	tsFileList := []string{"esm", "index.js", "index.d.ts"}
