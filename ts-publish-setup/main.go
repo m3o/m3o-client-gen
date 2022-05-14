@@ -7,7 +7,6 @@ import (
 	"log"
 	"os"
 	"os/exec"
-	"path/filepath"
 )
 
 const (
@@ -17,8 +16,7 @@ const (
 
 func main() {
 
-	workDir, _ := os.Getwd()
-	tsPath := filepath.Join(workDir, "src")
+	tsPath := "/src"
 
 	// this slice will be used as a value for the 'files' field in package.json
 	tsFileList := []string{"esm", "index.js", "index.d.ts"}
@@ -36,7 +34,7 @@ func main() {
 	}
 
 	// populate 'files' field value with tsFileList in the packagae.json
-	ore, err := ioutil.ReadFile(filepath.Join(workDir, "package.json"))
+	ore, err := ioutil.ReadFile("package.json")
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -58,7 +56,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	pack, err := os.OpenFile(filepath.Join(workDir, "package.json"), os.O_TRUNC|os.O_WRONLY|os.O_CREATE, FILE_EXECUTE_PERMISSION)
+	pack, err := os.OpenFile("package.json", os.O_TRUNC|os.O_WRONLY|os.O_CREATE, FILE_EXECUTE_PERMISSION)
 	if err != nil {
 		fmt.Println("Failed to open package.json", err)
 		os.Exit(1)
@@ -73,7 +71,7 @@ func main() {
 	}
 
 	// setting up .npmrc file with authToken
-	npmrc, err := os.OpenFile(filepath.Join(workDir, ".npmrc"), os.O_TRUNC|os.O_WRONLY|os.O_CREATE, FILE_EXECUTE_PERMISSION)
+	npmrc, err := os.OpenFile(".npmrc", os.O_TRUNC|os.O_WRONLY|os.O_CREATE, FILE_EXECUTE_PERMISSION)
 	if err != nil {
 		fmt.Println("Failed to open npmrc", err)
 		os.Exit(1)
