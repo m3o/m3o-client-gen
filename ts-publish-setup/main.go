@@ -89,7 +89,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	// get latest version from github
+	// get latest published version
 	getVersions := exec.Command("npm", "show", "m3o", "--time", "--json")
 	getVersions.Dir = tsPath
 
@@ -113,5 +113,5 @@ func main() {
 		}
 	}
 
-	fmt.Println("npm output version: ", npmOutput.Versions)
+	fmt.Println("the last published version: ", npmOutput.Versions[len(npmOutput.Versions)-1])
 }
