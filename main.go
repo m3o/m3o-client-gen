@@ -119,6 +119,9 @@ func generate(g generator, path, workDir, examplesPath string) {
 
 			exam, err := ioutil.ReadFile(filepath.Join(workDir, serviceName, "examples.json"))
 			if err != nil {
+                                exam, err = ioutil.ReadFile(filepath.Join(workDir, serviceName, "config", "examples.json"))
+                        }
+			if err != nil {
 				fmt.Println(err)
 				os.Exit(1)
 			}
